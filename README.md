@@ -74,7 +74,11 @@ sudo cp -r system-configs/X11/* /etc/X11/xorg.conf.d/
 
 *(Note: The 165Hz display refresh rate fix is handled directly inside the `~/.config/i3/config` file using `xrandr`)*
 
-### Bugs 🐛
+### Bug Fixed
+
+GA402XU Linux Audio Fix
+https://github.com/thw01f/GA402XU-Linux-Audio-Fix
+
 <s>### 3. Audio Optimization (ROG Zephyrus G14)
 
 To restore the missing bass on the G14's Cirrus Logic amplifiers:
@@ -172,6 +176,10 @@ cp dbus-services/org.kde.kdeconnect.service ~/.local/share/dbus-1/services/
 copyq &
 kdeconnect-indicator &
 ```
+### 9. Clipboard
+
+Rofi + CopyQ clipboard manager:  
+https://github.com/thw01f/i3-copyq-rofi-clipboard
 
 ## 🔄 Finalizing
 
