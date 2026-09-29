@@ -253,4 +253,8 @@ bindsym --release $mod+Shift+s exec --no-startup-id flameshot gui
 
 bindsym $mod+b exec --no-startup-id firefox
 bindsym $mod+n exec --no-startup-id thunar
+bindsym $mod+t exec --no-startup-id kitty
+
+#polybar toggle
+bindsym $mod+p exec --no-startup-id polybar-msg cmd toggle
 
