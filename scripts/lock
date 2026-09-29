@@ -1,0 +1,27 @@
+#!/bin/sh
+BLANK='#00000000'
+RED='#ff0000ff'
+DARK_RED='#440000ff'
+
+i3lock -n \
+--color=000000 \
+--insidever-color=$BLANK \
+--ringver-color=$RED \
+--insidewrong-color=$BLANK \
+--ringwrong-color=$RED \
+--inside-color=$BLANK \
+--ring-color=$DARK_RED \
+--line-color=$BLANK \
+--separator-color=$RED \
+--verif-color=$RED \
+--wrong-color=$RED \
+--time-color=$RED \
+--date-color=$RED \
+--layout-color=$RED \
+--keyhl-color=$RED \
+--bshl-color=$RED \
+--clock \
+--indicator \
+--time-str="%H:%M:%S" \
+--date-str="%A, %Y-%m-%d" \
+--keylayout 1
