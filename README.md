@@ -148,6 +148,31 @@ xrdb -merge ~/.Xresources
 ```
 
 
+### 7. Notifications (Dunst)
+
+This setup uses a custom red and black hacker theme for desktop notifications, with fonts properly scaled to balance out the 200% Xresources zoom.bash
+
+```bash
+mkdir -p ~/.config/dunst
+cp dunst/dunstrc ~/.config/dunst/
+```
+
+### 8. KDE Connect & Clipboard
+
+To enable Android phone integration on i3wm and bypass the missing D-Bus service error, you must copy the provided service file before launching the indicator.
+
+```bash
+# Fix KDE Connect D-Bus error
+mkdir -p ~/.local/share/dbus-1/services
+cp dbus-services/org.kde.kdeconnect.service ~/.local/share/dbus-1/services/
+```
+# The applets will launch automatically via the provided i3 config on reboot,
+# or you can start them manually:
+```bash
+copyq &
+kdeconnect-indicator &
+```
+
 ## 🔄 Finalizing
 
 Once all files are in their correct locations, restart i3wm to apply the changes and launch Polybar:
