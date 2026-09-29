@@ -105,6 +105,49 @@ cp -r Hackerer ~/.themes/
 2. Open `lxappearance` from the terminal.
 3. Select the "Hackerer" theme from the list and click **Apply**.
 
+
+### 5. Terminal & Fonts (Kitty)
+
+To get the custom aesthetic, red block cursor, and perfectly integrated Kali colors for your terminal:
+
+1. **Install the Font:**
+Extract the provided `Hack.zip` into your local fonts directory and update the font cache:bash
+Move the `kitty` folder into your user's `.config` directory:
+```bash
+mkdir -p ~/.local/share/fonts
+unzip Hack.zip -d ~/.local/share/fonts/
+fc-cache -fv
+```
+
+
+
+2. **Copy Kitty Configuration:**
+Move the `kitty` folder into your user's `.config` directory:
+```bash
+cp -r kitty ~/.config/
+
+```
+
+
+
+### 6. Display Scaling (Xresources)
+
+If you are using a high-resolution display (like the Zephyrus G14's 1440p or 1600p screen), default i3wm and X11 apps will look incredibly tiny.
+
+1. Copy the `.Xresources` file to your home directory to apply a global 200% scale:
+```bash
+cp .Xresources ~/
+
+```
+
+
+2. Apply the scaling immediately:
+```bash
+xrdb -merge ~/.Xresources
+
+```
+
+
 ## 🔄 Finalizing
 
 Once all files are in their correct locations, restart i3wm to apply the changes and launch Polybar:
