@@ -240,8 +240,8 @@ exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agen
 exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/scripts/lock
 
 
-exec --no-startup-id easyeffects --gapplication-service
-exec_always --no-startup-id alsactl --file ~/.config/asound.state restore
+#exec --no-startup-id easyeffects --gapplication-service
+#exec_always --no-startup-id alsactl --file ~/.config/asound.state restore
 
 
 bindsym $mod+x exec --no-startup-id env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
@@ -258,3 +258,9 @@ bindsym $mod+t exec --no-startup-id kitty
 #polybar toggle
 bindsym $mod+p exec --no-startup-id polybar-msg cmd toggle
 
+#Audio Fix
+exec --no-startup-id sh -c 'sleep 2; amixer -c 2 sset Master 100%; amixer -c 2 sset Speaker 100%; amixer -c 2 sset PCM 100%; wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0'
+
+
+#Clipboard
+bindsym $mod+c exec --no-startup-id ~/.local/bin/copyq-rofi

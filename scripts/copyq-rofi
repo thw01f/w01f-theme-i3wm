@@ -1,0 +1,112 @@
+#!/bin/bash
+
+set -u
+
+# Get all clipboard text in ONE CopyQ invocation.
+data=$(copyq eval '
+var items = [];
+for (var i = 0; i < count(); ++i) {
+    var item = getItem(i);
+    var text = item[mimeText];
+    if (text === undefined)
+        text = "";
+    items.push(str(text));
+}
+print(JSON.stringify(items));
+' 2>/dev/null)
+
+[ -z "$data" ] && exit 0
+
+# Convert JSON clipboard history into Rofi-safe previews.
+# Each clipboard item becomes exactly ONE Rofi row.
+mapfile -t previews < <(
+    python3 -c '
+import sys, json
+
+items = json.loads(sys.stdin.read())
+
+for text in items:
+    if not text:
+        print("[Empty / non-text item]")
+        continue
+
+    # Keep the entire clipboard item intact in CopyQ.
+    # Only create a one-line display preview for Rofi.
+    preview = text.replace("\r", "").replace("\n", " ")
+
+    # Collapse excessive whitespace.
+    preview = " ".join(preview.split())
+
+    # Keep the same readable preview style.
+    if len(preview) > 180:
+        preview = preview[:180] + "…"
+
+    print(preview)
+' <<< "$data"
+)
+
+[ "${#previews[@]}" -eq 0 ] && exit 0
+
+# Rofi floating clipboard UI.
+index=$(
+    printf '%s\n' "${previews[@]}" |
+    rofi \
+        -dmenu \
+        -i \
+        -p "Clipboard" \
+        -no-custom \
+        -sorting-method fzf \
+        -format 'i' \
+        -theme-str '
+            window {
+                width: 85%;
+                height: 70%;
+            }
+
+            mainbox {
+                children: [ inputbar, listview ];
+            }
+
+            inputbar {
+                padding: 12px;
+                spacing: 12px;
+            }
+
+            entry {
+                font: "Noto Sans 16";
+            }
+
+            prompt {
+                font: "Noto Sans Bold 16";
+            }
+
+            listview {
+                lines: 14;
+                spacing: 6px;
+                fixed-height: true;
+            }
+
+            element {
+                padding: 10px 14px;
+                spacing: 10px;
+            }
+
+            element-text {
+                font: "Noto Sans 15";
+                vertical-align: 0.5;
+                horizontal-align: 0.0;
+            }
+
+            element selected {
+                padding: 10px 14px;
+            }
+        '
+)
+
+[ -z "$index" ] && exit 0
+
+# Restore the ORIGINAL clipboard item.
+copyq select "$index"
+
+# Paste it into the application that was previously focused.
+copyq paste
