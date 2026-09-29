@@ -192,9 +192,7 @@ bindsym $mod+r mode "resize"
 #}
 
 # Launch Polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-
-
+exec --no-startup-id polybar
 
 #cutom
 
@@ -225,16 +223,6 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 
 
 
-# Start system tray applets
-#exec --no-startup-id nm-applet
-
-# System Tray Applets & Background Services
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-#exec --no-startup-id pasystray
-exec --no-startup-id dunst
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-
 
 # Auto-lock when laptop goes to sleep or suspends
 exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/scripts/lock
@@ -264,3 +252,12 @@ exec --no-startup-id sh -c 'sleep 2; amixer -c 2 sset Master 100%; amixer -c 2 s
 
 #Clipboard
 bindsym $mod+c exec --no-startup-id ~/.local/bin/copyq-rofi
+
+
+# System Tray Applets & Background Services
+exec --no-startup-id copyq
+exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id dunst
+exec --no-startup-id /usr/lib/policykit-1/polkit-gnome-authentication-agent-1
